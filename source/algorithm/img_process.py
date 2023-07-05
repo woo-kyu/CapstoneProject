@@ -1,8 +1,8 @@
-import cv2
-import numpy as np
 import os
 import json
-import matplotlib.pyplot as plt
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
 
 class ImageProcess:
     def __init__(self, img_path):
