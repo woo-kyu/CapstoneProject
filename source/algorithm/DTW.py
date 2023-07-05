@@ -12,13 +12,13 @@ class DTWComparator:
     def load_ref_data(self, json_file_path):
         with open(json_file_path, 'r') as f:
             data = json.load(f)
-        self.ref_data = np.array([[d['relative_coordinate'], d['unit_direction_vector']] for d in data])
+        self.ref_data = np.array([d['relative_coordinate'] + d['unit_direction_vector'] for d in data])
         self.ref_data = self.normalize_data(self.ref_data)
 
     def load_comp_data(self, json_file_path):
         with open(json_file_path, 'r') as f:
             data = json.load(f)
-        self.comp_data = np.array([[d['relative_coordinate'], d['unit_direction_vector']] for d in data])
+        self.comp_data = np.array([d['relative_coordinate'] + d['unit_direction_vector'] for d in data])
         self.comp_data = self.normalize_data(self.comp_data)
 
     def normalize_data(self, data):

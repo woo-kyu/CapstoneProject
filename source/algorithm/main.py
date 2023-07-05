@@ -1,7 +1,7 @@
 from img_process import *
 import DTW
 
-def function(img_path):
+def pre_process(img_path):
     p1 = ImageProcess(img_path)
     p1_processed = p1.draw_contour()
     p1.save_img(p1_processed)
@@ -20,5 +20,7 @@ def dtw(json_file_path1, json_file_path2):
 
 
 if __name__ == "__main__":
-    img_name = 'Source/a/a.png'
-    function(img_name)
+    img_name = 'source/a/a.png'
+
+    # pre_process(img_name)
+    dtw('source/a/a_dataized.json', 'source/a/a_dataized.json')
