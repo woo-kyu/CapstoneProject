@@ -20,7 +20,7 @@ def dtw(json_file_path1, json_file_path2):
 
 
 if __name__ == "__main__":
-    img_name = 'source/a/a.png'
+    img_name = 'source/c/c.png'
 
     # pre_process(img_name)
     dtw('source/a/a_dataized.json', 'source/a/a_dataized.json')

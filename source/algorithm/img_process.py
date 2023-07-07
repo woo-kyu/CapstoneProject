@@ -10,17 +10,17 @@ class ImageProcess:
         self.img = cv2.imread(self.img_path, 0)
 
     def canny_edge(self):
-        return cv2.Canny(self.img, 50, 150)
+        return cv2.Canny(self.img, 50, 150) # 캐니앳지 적용. 1, 2번 인자는 감도
 
-    def find_max_contour(self):
-        cannyed = self.canny_edge()
-        contours, _ = cv2.findContours(cannyed, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        return max(contours, key = cv2.contourArea)
+    def find_max_contour(self): # 테두리 찾는 함수. 가장 긴 라인을 테두리로 정의
+        cannyed = self.canny_edge() # 캐니 엣지 적용된 그림을 받아온다.
+        contours, _ = cv2.findContours(cannyed, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE) # 모든 라인마다 길이 정보를 정의 및 저장
+        return max(contours, key = cv2.contourArea) # 가장 긴 길이의 선을 컨투어로 정의.
 
-    def draw_contour(self):
-        cnt = self.find_max_contour()
+    def draw_contour(self): # 테두리 정보만을 가진 그림을 생성
+        tmp = self.find_max_contour()  # find_max_contour 에서 전달 받은 데이터를 저장
         processed_img = np.zeros_like(self.img)
-        return cv2.drawContours(processed_img, [cnt], 0, (255, 255, 255), 1)
+        return cv2.drawContours(processed_img, [tmp], 0, (255, 255, 255), 1) # 새로운 그림 생성
 
     def save_img(self, processed_img):
         filename, file_extension = os.path.splitext(self.img_path)
@@ -34,11 +34,11 @@ class Dataization:
         self.img_path = img_path
 
     def find_coordinates(self):
-        points = np.where(self.img != 0)
-        coordinates = list(zip(points[1], points[0]))
-        start = min(coordinates, key=lambda x: x[0])
+        points = np.where(self.img != 0) # 이미지의 0이 아닌 (dot가 유효한) 포인트를 저장
+        coordinates = list(zip(points[1], points[0])) # 리스트에 좌표값 저장
+        start = min(coordinates, key=lambda x: x[0]) # 가장 0에 가까운 x축이 그림의 시작점으로 정의
         sorted_coordinates = sorted(coordinates, key=lambda x: (
-        -np.arctan2(x[1] - start[1], x[0] - start[0]), -np.hypot(x[1] - start[1], x[0] - start[0])))
+        -np.arctan2(x[1] - start[1], x[0] - start[0]), -np.hypot(x[1] - start[1], x[0] - start[0]))) # 좌표값 정렬
         return sorted_coordinates
 
     def create_dataized(self, sorted_coordinates):
