@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<div id="container">
+    <div id="canvasContainer">
+        <canvas id="myCanvas" width="960" height="640"></canvas>
+    </div>
+    <div id="buttons">
+        <button onclick="clearCanvas()">Clear</button>
+        <button onclick="undoStroke()">Undo</button>
+        <button id="downloadButton">Download JSON</button>
+    </div>
+    <div id="infoContainer">
+        <div id="currentPosBox"></div>
+        <div id="sequentialData"></div>
+    </div>
+    <div id="replicaContainer">
+        <canvas id="replicaCanvas" width="960" height="640"></canvas>
+    </div>
+</div>
+
+<!--스크립트 경로 수정-->
+<script src="script_edit3.js"></script>
+
+</body>
+</html>
